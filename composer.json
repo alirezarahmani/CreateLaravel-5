@@ -8,7 +8,7 @@
             "email": "Alirezarahmani@live.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "laravel/framework": "~5.0"
     },
