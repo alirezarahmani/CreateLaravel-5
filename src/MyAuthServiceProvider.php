@@ -1,6 +1,6 @@
 <?php
 
-namespace Alireza\Myauthtutor;
+namespace  Alireza\Authentication;
 use Illuminate\Support\ServiceProvider;
 
 
