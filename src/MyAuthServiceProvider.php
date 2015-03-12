@@ -20,7 +20,7 @@ class MyAuthServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->replaceBoundConfig();
+
     }
     /**
      * Register the service provider.
