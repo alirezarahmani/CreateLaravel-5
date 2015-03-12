@@ -2,7 +2,7 @@
 
 namespace Alireza\Authentication;
 use Config,Request,Session,Hash;
-
+use App\User;
 Class MyAuth
 {
     protected $data;
@@ -46,3 +46,5 @@ Class MyAuth
     }
 
 }
+
+
