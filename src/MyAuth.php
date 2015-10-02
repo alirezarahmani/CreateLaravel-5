@@ -13,6 +13,7 @@ Class MyAuth
 
     public function __construct()
     {
+         if (Request::isMethod('post'))
         $this->data = ['username' => Input::get('username'), 'password' => Input::get('password')];
     }
 
