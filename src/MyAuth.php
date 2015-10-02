@@ -1,7 +1,7 @@
 <?php
 namespace Alireza\Authentication;
 
-use Config, Input, Session, Hash;
+use Config, Input, Session, Hash, Request;
 use App\User;
 
 Class MyAuth
