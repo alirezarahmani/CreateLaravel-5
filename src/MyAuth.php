@@ -1,41 +1,40 @@
 <?php
-
 namespace Alireza\Authentication;
-use Config,Request,Session,Hash;
+
+use Config, Input, Session, Hash;
 use App\User;
+
 Class MyAuth
 {
-    protected $data;
+    public $redirect_login = '/users/home';
+    public $redirect_logout = '/users/logout';
+    public $login = '/user/login';
+    private $data;
 
-    public $redirect_login='/users/home';
-    public $redirect_logout='/users/logout';
-    public $login='/user/login';
-
-    public  function __construct()
+    public function __construct()
     {
-        if (Request::isMethod('post')) //Get post inputs
-             $this->data=array('username'=>Input::get('username'),'password'=>Input::get('password'));
+        $this->data = ['username' => Input::get('username'), 'password' => Input::get('password')];
     }
 
-    public function login($data=false)
+    public function login($data = false)
     {
-        $this->data=$data;
+        $this->data = $data;
 
         if ($this->data && !is_array($this->data))
-                return redirect($this->redirect_login)->with('message', 'sorry no array to log-in manually');
+            return redirect($this->redirect_login)->with('message', 'sorry no array to log-in manually');
 
-        if($this->data && !Session::has('user'))
-        {
-            $result= User::Where(function($query)
-            {
-                $query-> where('email',$this->data['username'])
-                      -> where('password',Hash::make($this->data['password']));
+        if ($this->data && !Session::has('user')) {
+            $result = User::Where(function ($query) {
+                $query->where('email', $this->data['username'])
+                    ->where('password', Hash::make($this->data['password']));
             })->first();
 
-            Session::put('user', $result);
-               return Redirect($this->redirect_login)->with('message', 'Welcome log-in succeeded ');
+            if ($result) {
+                Session::put('user', $result);
+                return Redirect($this->redirect_login)->with('message', 'Welcome log-in succeeded ');
+            }
             Session::flush();
-               return redirect($this->redirect_logout)->with('message', 'Login Failed, wrong username or password');
+            return redirect($this->redirect_logout)->with('message', 'Login Failed, wrong username or password');
         }
     }
 
@@ -46,5 +45,3 @@ Class MyAuth
     }
 
 }
-
-
